@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface ProgramRepository extends MongoRepository<Program, String> {
 
-    Program findByName(String name);
+    Optional<Program> findByName(String name);
     String deleteByName(String name);
 }

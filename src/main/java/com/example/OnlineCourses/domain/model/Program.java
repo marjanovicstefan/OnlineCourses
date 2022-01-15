@@ -1,9 +1,6 @@
 package com.example.OnlineCourses.domain.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -11,7 +8,6 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import java.util.List;
 
 @Document(collection = "Program")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Program {
@@ -23,6 +19,21 @@ public class Program {
     private String name;
 
     @Field
-    @Getter
     private List<Course> courses;
+
+    public String getName(){
+        return name;
+    }
+
+    public List<Course> getCourses(){
+        return courses;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public void setCourses(List<Course> courses){
+        this.courses = courses;
+    }
 }
