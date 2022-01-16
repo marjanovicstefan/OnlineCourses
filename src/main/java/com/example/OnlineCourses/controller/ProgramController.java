@@ -5,6 +5,7 @@ import com.example.OnlineCourses.domain.model.Program;
 import com.example.OnlineCourses.service.ProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,26 +19,31 @@ public class ProgramController {
     private ProgramService programService;
 
     @GetMapping("/getall")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     public ResponseEntity<List<Program>> getAllPrograms(){
         return ResponseEntity.ok(programService.getAllPrograms());
     }
 
     @GetMapping("/{name}")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<Program> getProgramByName(@PathVariable String name){
         return ResponseEntity.ok(programService.findByName(name));
     }
 
     @PostMapping("/insert")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Program> insertProgram(@RequestBody Program program){
         return ResponseEntity.ok(programService.insertProgram(program));
     }
 
     @PostMapping("/course/{name}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Program> insertCourse(@PathVariable String name,@RequestBody Course course){
         return ResponseEntity.ok(programService.insertCourse(name, course));
     }
 
     @PutMapping("/update/{name}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Program> updateProgram(@RequestBody Program program, @PathVariable String name){
         return ResponseEntity.ok(programService.updateProgram(program, name));
     }
@@ -49,6 +55,7 @@ public class ProgramController {
 //    }
 
     @DeleteMapping("/delete/{name}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<String> deleteProgram(@PathVariable String name){
         return ResponseEntity.ok(programService.deleteProgramByName(name));
     }

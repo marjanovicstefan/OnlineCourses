@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
 public class Author {
 
     private String name;
@@ -12,6 +11,12 @@ public class Author {
     private String job;
 
     private String about;
+
+    public Author(String name, String job, String about) {
+        this.name = name;
+        this.job = job;
+        this.about = about;
+    }
 
     public String getName() {
         return name;

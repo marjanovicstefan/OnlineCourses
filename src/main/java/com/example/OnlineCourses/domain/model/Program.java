@@ -8,8 +8,6 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import java.util.List;
 
 @Document(collection = "Program")
-@NoArgsConstructor
-@AllArgsConstructor
 public class Program {
 
     @Id
@@ -20,6 +18,15 @@ public class Program {
 
     @Field
     private List<Course> courses;
+
+    public Program() {
+    }
+
+    public Program(String id, String name, List<Course> courses) {
+        this.id = id;
+        this.name = name;
+        this.courses = courses;
+    }
 
     public String getName(){
         return name;

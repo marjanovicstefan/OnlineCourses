@@ -7,7 +7,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 @Data
-@AllArgsConstructor
 @Document(collection = "User")
 public class User {
 
@@ -28,6 +27,15 @@ public class User {
 
     @Field
     private Course course;
+
+    public User(String id, String userName, String password, Boolean active, String roles, Course course) {
+        this.id = id;
+        this.userName = userName;
+        this.password = password;
+        this.active = active;
+        this.roles = roles;
+        this.course = course;
+    }
 
     public String getUserName() {
         return userName;

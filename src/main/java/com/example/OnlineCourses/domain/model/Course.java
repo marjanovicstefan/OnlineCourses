@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Course {
 
     private String name;
@@ -30,6 +28,23 @@ public class Course {
     private double review;
 
     private String programmingLanguage;
+
+    public Course() {
+    }
+
+    public Course(String name, double price, String time, int numberOfArticles, int numberOfExercises,
+                  boolean accessOnMobileAndTv, boolean certificate, List<Author> authors, double review,
+                  String programmingLanguage) {
+        this.name = name;
+        this.price = price;
+        this.numberOfArticles = numberOfArticles;
+        this.numberOfExercises = numberOfExercises;
+        this.accessOnMobileAndTv = accessOnMobileAndTv;
+        this.certificate = certificate;
+        this.authors = authors;
+        this.review = review;
+        this.programmingLanguage = programmingLanguage;
+    }
 
     public String getName() {
         return name;
