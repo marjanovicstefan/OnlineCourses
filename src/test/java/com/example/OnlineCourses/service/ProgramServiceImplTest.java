@@ -4,6 +4,9 @@ import com.example.OnlineCourses.domain.exception.ProgramNotFoundException;
 import com.example.OnlineCourses.domain.model.Course;
 import com.example.OnlineCourses.domain.model.Program;
 import com.example.OnlineCourses.domain.repository.ProgramRepository;
+import graphql.ExecutionResult;
+import graphql.GraphQL;
+import graphql.GraphQLError;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -28,6 +31,9 @@ public class ProgramServiceImplTest {
 
     @InjectMocks
     private ProgramServiceImpl service;
+
+    @Mock
+    private GraphQL graphql;
 
     @Test
     void getAllProgramsTest(){
@@ -168,5 +174,42 @@ public class ProgramServiceImplTest {
                 () -> service.insertCourse("NonExcistingName", new Course()));
         // then
         assertThat(exception).hasMessageContaining("Program with NonExcistingName name doesn't exist!");
+    }
+
+    @Test
+    void getAllProgramsGraphQLTest(){
+        // Given
+        Map<String, Object> expectedResponse = Collections.singletonMap("MerchantData", "Data");
+        String query = "test";
+
+        ExecutionResult executionResult = new ExecutionResult() {
+            @Override
+            public <T> T getData() {
+                return null;
+            }
+
+            @Override
+            public List<GraphQLError> getErrors() {
+                return null;
+            }
+
+            @Override
+            public Map<Object, Object> getExtensions() {
+                return null;
+            }
+
+            @Override
+            public Map<String, Object> toSpecification() {
+                return Collections.singletonMap("MerchantData", "Data");
+            }
+        };
+
+        Mockito.when(graphql.execute(query)).thenReturn(executionResult);
+
+        // When
+        Object actualResponse = service.graphQLGetAllPrograms(query);
+
+        // Then
+        assertEquals(expectedResponse, actualResponse);
     }
 }

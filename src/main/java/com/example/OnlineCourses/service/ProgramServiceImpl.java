@@ -4,6 +4,7 @@ import com.example.OnlineCourses.domain.exception.ProgramNotFoundException;
 import com.example.OnlineCourses.domain.model.Course;
 import com.example.OnlineCourses.domain.model.Program;
 import com.example.OnlineCourses.domain.repository.ProgramRepository;
+import graphql.GraphQL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,9 @@ public class ProgramServiceImpl implements ProgramService {
 
     @Autowired
     private ProgramRepository programRepository;
+
+    @Autowired
+    private GraphQL graphQL;
 
     @Override
     public List<Program> getAllPrograms() {
@@ -84,5 +88,10 @@ public class ProgramServiceImpl implements ProgramService {
         programRepository.deleteByName(name);
 
         return "Program with name "+name+" is deleted!";
+    }
+
+    @Override
+    public Object graphQLGetAllPrograms(String query) {
+        return graphQL.execute(query).toSpecification();
     }
 }

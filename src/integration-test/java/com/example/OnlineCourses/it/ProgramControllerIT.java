@@ -270,4 +270,48 @@ public class ProgramControllerIT extends TestConfig{
                 .andExpect(MockMvcResultMatchers
                         .jsonPath("$.message", equalTo("Program with NonExcistingProgram name doesn't exist!")));
     }
+
+    @WithMockUser(username = "user", password = "1234", roles = {"USER"})
+    @Test
+    void getAllProgramsGraphQL() throws Exception {
+        mockMvc
+                .perform(
+                        post("/api/programs/graphql" ).contentType(MediaType.APPLICATION_JSON)
+                                .content(QUERY).accept(MediaType.APPLICATION_JSON)).andExpect(status().is(200))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.getAllPrograms[0].name",
+                        equalTo("Program")));
+    }
+
+    @WithMockUser(username = "user", password = "1234", roles = {"USER"})
+    @Test
+    void getAllProgramsWhenOperationInvalid() throws Exception {
+
+        mockMvc
+                .perform(
+                        post("/api/programs/graphql").contentType(MediaType.APPLICATION_JSON)
+                                .content(QUERY_INVALID_OPERATION).accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().is(200))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.getAllPrograms", equalTo(null)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errors[0].message", equalTo(
+                        "Exception while fetching data (/getAllPrograms) : Unsupported filter operation")))
+                .andExpect(MockMvcResultMatchers
+                        .jsonPath("$.errors[0].extensions.errorCode", equalTo("OC-4002")))
+                .andReturn().getResponse().getContentAsString();
+    }
+
+    @WithMockUser(username = "user", password = "1234", roles = {"USER"})
+    @Test
+    void getAllProgramsWhenTypeInvalid() throws Exception {
+        mockMvc
+                .perform(
+                        post("/api/programs/graphql").contentType(MediaType.APPLICATION_JSON)
+                                .content(QUERY_INVALID_TYPE).accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().is(200))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.getAllPrograms", equalTo(null)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errors[0].message",
+                        equalTo("Exception while fetching data (/getAllPrograms) : Type not supported!")))
+                .andExpect(
+                        MockMvcResultMatchers.jsonPath("$.errors[0].extensions.errorCode", equalTo("OC-4003")))
+                .andReturn().getResponse().getContentAsString();
+    }
 }

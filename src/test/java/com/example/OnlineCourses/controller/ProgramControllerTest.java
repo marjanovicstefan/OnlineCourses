@@ -113,4 +113,20 @@ public class ProgramControllerTest {
 
         assertEquals("", actual.getBody());
     }
+
+    @Test
+    void testGetAllProgramsGraphQLTest() {
+        // Given
+        Map<String, Object> expectedResponse = Collections.singletonMap("MerchantData", "Data");
+        Map<String, Object> query = Collections.singletonMap("query", "query");
+
+        Mockito.when(service.graphQLGetAllPrograms((String) query.get("query")))
+                .thenReturn(expectedResponse);
+
+        // When
+        Object actualResponse = controller.getAllGraphQLPrograms(query).getBody();
+
+        // Then
+        assertEquals(expectedResponse, actualResponse);
+    }
 }

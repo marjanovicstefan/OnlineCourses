@@ -48,11 +48,11 @@ public class ProgramController {
         return ResponseEntity.ok(programService.updateProgram(program, name));
     }
 
-//    @PreAuthorize("hasRole('ROLE_USER')")
-//    @PostMapping("/graphql")
-//    public ResponseEntity<Object> getAllGraphQLPrograms(@RequestBody Map<String, Object> query){
-//        return ResponseEntity.ok(programService.graphQLGetAllPrograms((String) query.get("query")));
-//    }
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @PostMapping("/graphql")
+    public ResponseEntity<Object> getAllGraphQLPrograms(@RequestBody Map<String, Object> query){
+        return ResponseEntity.ok(programService.graphQLGetAllPrograms((String) query.get("query")));
+    }
 
     @DeleteMapping("/delete/{name}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")

@@ -1,0 +1,40 @@
+scalar Object
+
+schema{
+    query:Query
+}
+
+type Query{
+    getAllPrograms(filters: [ProgramFilter]): [Program]
+}
+
+type Program{
+    id : String,
+    name : String,
+    courses : [Course]
+}
+
+type Course {
+    name : String,
+    price : Float,
+    time : String,
+    numberOfArticles : Int,
+    numberOfExercises : Int,
+    accessOnMobileAndTv : Boolean,
+    certificate : Boolean,
+    authors : [Author],
+    review : Float,
+    programmingLanguage : String
+}
+
+type Author {
+    name : String,
+    job : String,
+    about : String
+}
+
+input ProgramFilter{
+    path: String
+    value: Object
+    operation: String
+}
