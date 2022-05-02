@@ -1,10 +1,5 @@
 package com.example.OnlineCourses.domain.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 public class ProgramFilter {
 
     private String path;

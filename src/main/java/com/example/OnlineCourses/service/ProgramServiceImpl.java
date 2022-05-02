@@ -6,6 +6,7 @@ import com.example.OnlineCourses.domain.model.Program;
 import com.example.OnlineCourses.domain.repository.ProgramRepository;
 import graphql.GraphQL;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +42,7 @@ public class ProgramServiceImpl implements ProgramService {
         ) {
             for (Course c: p.getCourses()
             ) {
-                if(c.getName().equals(courseName)){
+                if(c.getCourseName().equals(courseName)){
                     return c;
                 }
             }

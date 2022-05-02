@@ -5,7 +5,6 @@ import com.example.OnlineCourses.domain.model.Program;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.Arrays;
@@ -82,7 +81,7 @@ public class ProgramControllerIT extends TestConfig{
             + "id,"
             + "name,"
             + "courses{"
-            + "name,"
+            + "courseName,"
             + "price,"
             + "time,"
             + "numberOfArticles,"
@@ -90,7 +89,7 @@ public class ProgramControllerIT extends TestConfig{
             + "accessOnMobileAndTv,"
             + "certificate,"
             + "authors{"
-            + "name,"
+            + "authorName,"
             + "job,"
             + "about"
             + "},"
@@ -105,7 +104,7 @@ public class ProgramControllerIT extends TestConfig{
             + "id,"
             + "name,"
             + "courses{"
-            + "name,"
+            + "courseName,"
             + "price,"
             + "time,"
             + "numberOfArticles,"
@@ -113,7 +112,7 @@ public class ProgramControllerIT extends TestConfig{
             + "accessOnMobileAndTv,"
             + "certificate,"
             + "authors{"
-            + "name,"
+            + "authorName,"
             + "job,"
             + "about"
             + "},"
@@ -128,7 +127,7 @@ public class ProgramControllerIT extends TestConfig{
             + "id,"
             + "name,"
             + "courses{"
-            + "name,"
+            + "courseName,"
             + "price,"
             + "time,"
             + "numberOfArticles,"
@@ -136,7 +135,7 @@ public class ProgramControllerIT extends TestConfig{
             + "accessOnMobileAndTv,"
             + "certificate,"
             + "authors{"
-            + "name,"
+            + "authorName,"
             + "job,"
             + "about"
             + "},"
@@ -165,7 +164,7 @@ public class ProgramControllerIT extends TestConfig{
         programRepository.save(program);
     }
 
-    @WithMockUser(username = "admin", password = "1234", roles = {"ADMIN"})
+    //@WithMockUser(username = "admin", password = "1234", roles = {"ADMIN"})
     @Test
     void getAllPrograms() throws Exception {
         mockMvc.perform(get("/api/programs/getall")
@@ -173,7 +172,7 @@ public class ProgramControllerIT extends TestConfig{
                 .andExpect(status().is(200));
     }
 
-    @WithMockUser(username = "user", password = "1234", roles = {"USER"})
+    //@WithMockUser(username = "user", password = "1234", roles = {"USER"})
     @Test
     void getProgramByName() throws Exception {
         mockMvc.perform(get("/api/programs/Program")
@@ -182,7 +181,7 @@ public class ProgramControllerIT extends TestConfig{
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name", equalTo("Program")));
     }
 
-    @WithMockUser(username = "user", password = "1234", roles = {"USER"})
+    //@WithMockUser(username = "user", password = "1234", roles = {"USER"})
     @Test
     void getProgramByNameException() throws Exception {
 
@@ -195,7 +194,7 @@ public class ProgramControllerIT extends TestConfig{
                         .jsonPath("$.message", equalTo("Program with name NonExcistingName doesn't exist!")));
     }
 
-    @WithMockUser(username = "admin", password = "1234", roles = {"ADMIN"})
+    //@WithMockUser(username = "admin", password = "1234", roles = {"ADMIN"})
     @Test
     void insertProgram() throws Exception {
         mockMvc.perform(post("/api/programs/insert")
@@ -204,7 +203,7 @@ public class ProgramControllerIT extends TestConfig{
                 .andExpect(status().is(200));
     }
 
-    @WithMockUser(username = "admin", password = "1234", roles = {"ADMIN"})
+    //@WithMockUser(username = "admin", password = "1234", roles = {"ADMIN"})
     @Test
     void updateProgram() throws Exception {
         mockMvc.perform(put("/api/programs/update/Program")
@@ -214,7 +213,7 @@ public class ProgramControllerIT extends TestConfig{
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name", equalTo("Program")));
     }
 
-    @WithMockUser(username = "admin", password = "1234", roles = {"ADMIN"})
+    //@WithMockUser(username = "admin", password = "1234", roles = {"ADMIN"})
     @Test
     void updateProgramException() throws Exception {
         mockMvc.perform(put("/api/programs/update/NonExcistingName")
@@ -227,7 +226,7 @@ public class ProgramControllerIT extends TestConfig{
                         .jsonPath("$.message", equalTo("Program with NonExcistingName name doesn't exist!")));
     }
 
-    @WithMockUser(username = "admin", password = "1234", roles = {"ADMIN"})
+    //@WithMockUser(username = "admin", password = "1234", roles = {"ADMIN"})
     @Test
     void insertCourse() throws Exception {
         mockMvc.perform(post("/api/programs/course/Program")
@@ -237,7 +236,7 @@ public class ProgramControllerIT extends TestConfig{
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name", equalTo("Program")));
     }
 
-    @WithMockUser(username = "admin", password = "1234", roles = {"ADMIN"})
+    //@WithMockUser(username = "admin", password = "1234", roles = {"ADMIN"})
     @Test
     void insertCourseException() throws Exception {
         mockMvc.perform(post("/api/programs/course/NonExcistingProgram")
@@ -250,7 +249,7 @@ public class ProgramControllerIT extends TestConfig{
                         .jsonPath("$.message", equalTo("Program with NonExcistingProgram name doesn't exist!")));
     }
 
-    @WithMockUser(username = "admin", password = "1234", roles = {"ADMIN"})
+    //@WithMockUser(username = "admin", password = "1234", roles = {"ADMIN"})
     @Test
     void deleteProgram() throws Exception {
         mockMvc.perform(delete("/api/programs/delete/Program")
@@ -259,7 +258,7 @@ public class ProgramControllerIT extends TestConfig{
                 .andExpect(result -> result.getResponse().equals("Program with name Program is deleted!"));
     }
 
-    @WithMockUser(username = "admin", password = "1234", roles = {"ADMIN"})
+    //@WithMockUser(username = "admin", password = "1234", roles = {"ADMIN"})
     @Test
     void deleteProgramException() throws Exception {
         mockMvc.perform(delete("/api/programs/delete/NonExcistingProgram")
@@ -271,7 +270,7 @@ public class ProgramControllerIT extends TestConfig{
                         .jsonPath("$.message", equalTo("Program with NonExcistingProgram name doesn't exist!")));
     }
 
-    @WithMockUser(username = "user", password = "1234", roles = {"USER"})
+    //@WithMockUser(username = "user", password = "1234", roles = {"USER"})
     @Test
     void getAllProgramsGraphQL() throws Exception {
         mockMvc
@@ -282,7 +281,7 @@ public class ProgramControllerIT extends TestConfig{
                         equalTo("Program")));
     }
 
-    @WithMockUser(username = "user", password = "1234", roles = {"USER"})
+    //@WithMockUser(username = "user", password = "1234", roles = {"USER"})
     @Test
     void getAllProgramsWhenOperationInvalid() throws Exception {
 
@@ -299,7 +298,7 @@ public class ProgramControllerIT extends TestConfig{
                 .andReturn().getResponse().getContentAsString();
     }
 
-    @WithMockUser(username = "user", password = "1234", roles = {"USER"})
+    //@WithMockUser(username = "user", password = "1234", roles = {"USER"})
     @Test
     void getAllProgramsWhenTypeInvalid() throws Exception {
         mockMvc

@@ -117,7 +117,7 @@ public class ProgramControllerTest {
     @Test
     void testGetAllProgramsGraphQLTest() {
         // Given
-        Map<String, Object> expectedResponse = Collections.singletonMap("MerchantData", "Data");
+        Map<String, Object> expectedResponse = Collections.singletonMap("Program data", "Data");
         Map<String, Object> query = Collections.singletonMap("query", "query");
 
         Mockito.when(service.graphQLGetAllPrograms((String) query.get("query")))

@@ -1,15 +1,10 @@
 package com.example.OnlineCourses.domain.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.util.List;
 
-@Data
 public class Course {
 
-    private String name;
+    private String courseName;
 
     private double price;
 
@@ -32,11 +27,12 @@ public class Course {
     public Course() {
     }
 
-    public Course(String name, double price, String time, int numberOfArticles, int numberOfExercises,
+    public Course(String courseName, double price, String time, int numberOfArticles, int numberOfExercises,
                   boolean accessOnMobileAndTv, boolean certificate, List<Author> authors, double review,
                   String programmingLanguage) {
-        this.name = name;
+        this.courseName = courseName;
         this.price = price;
+        this.time = time;
         this.numberOfArticles = numberOfArticles;
         this.numberOfExercises = numberOfExercises;
         this.accessOnMobileAndTv = accessOnMobileAndTv;
@@ -46,12 +42,12 @@ public class Course {
         this.programmingLanguage = programmingLanguage;
     }
 
-    public String getName() {
-        return name;
+    public String getCourseName() {
+        return courseName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 
     public double getPrice() {

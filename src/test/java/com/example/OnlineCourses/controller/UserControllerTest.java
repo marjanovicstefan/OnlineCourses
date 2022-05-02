@@ -1,6 +1,7 @@
 package com.example.OnlineCourses.controller;
 
 import com.example.OnlineCourses.domain.model.User;
+import com.example.OnlineCourses.domain.model.dto.LoginDto;
 import com.example.OnlineCourses.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -9,8 +10,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Collections;
 import java.util.List;
@@ -30,13 +29,10 @@ public class UserControllerTest {
     void insertUserTest(){
         User expected = new User("1", "admin", "1234", true, "ROLE_ADMIN", null);
 
-        PasswordEncoder encoder = new BCryptPasswordEncoder(10);
-        expected.setPassword(encoder.encode(expected.getPassword()));
-
         when(userService.insertUser(Mockito.any())).thenReturn(expected);
 
         ResponseEntity<User> actual = controller.insertUser(
-                new User("1", "admin", expected.getPassword(), true, "ROLE_ADMIN", null));
+                new LoginDto("admin", expected.getPassword()));
 
         assertEquals(expected, actual.getBody());
     }

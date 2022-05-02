@@ -1,12 +1,12 @@
 package com.example.OnlineCourses.domain.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-@Data
+import java.util.List;
+
+
 @Document(collection = "User")
 public class User {
 
@@ -26,15 +26,15 @@ public class User {
     private String roles;
 
     @Field
-    private Course course;
+    private String courses;
 
-    public User(String id, String userName, String password, Boolean active, String roles, Course course) {
+    public User(String id, String userName, String password, Boolean active, String roles, String courses) {
         this.id = id;
         this.userName = userName;
         this.password = password;
         this.active = active;
         this.roles = roles;
-        this.course = course;
+        this.courses = courses;
     }
 
     public String getUserName() {
@@ -69,11 +69,11 @@ public class User {
         this.roles = roles;
     }
 
-    public Course getCourse() {
-        return course;
+    public String getCourses() {
+        return courses;
     }
 
-    public void setCourse(Course course) {
-        this.course = course;
+    public void setCourses(String courses) {
+        this.courses = courses;
     }
 }

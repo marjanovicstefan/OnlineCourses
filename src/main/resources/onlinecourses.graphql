@@ -15,7 +15,7 @@ type Program{
 }
 
 type Course {
-    name : String,
+    courseName : String,
     price : Float,
     time : String,
     numberOfArticles : Int,
@@ -28,7 +28,7 @@ type Course {
 }
 
 type Author {
-    name : String,
+    authorName : String,
     job : String,
     about : String
 }

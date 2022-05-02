@@ -1,29 +1,25 @@
 package com.example.OnlineCourses.domain.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
-@Data
 public class Author {
 
-    private String name;
+    private String authorName;
 
     private String job;
 
     private String about;
 
-    public Author(String name, String job, String about) {
-        this.name = name;
+    public Author(String authorName, String job, String about) {
+        this.authorName = authorName;
         this.job = job;
         this.about = about;
     }
 
     public String getName() {
-        return name;
+        return authorName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.authorName = name;
     }
 
     public String getJob() {
